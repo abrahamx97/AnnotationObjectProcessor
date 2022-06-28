@@ -1,4 +1,4 @@
-package bin.main.annotation.object.processor.interfaces;
+package annotation.object.processor.interfaces;
 
 import java.lang.annotation.Annotation;
 

@@ -1,4 +1,4 @@
-package bin.main.annotation.object.processor.beans;
+package annotation.object.processor.beans;
 
 import java.lang.annotation.Annotation;
 

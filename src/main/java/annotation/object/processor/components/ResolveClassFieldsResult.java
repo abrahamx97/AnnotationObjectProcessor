@@ -1,8 +1,8 @@
-package bin.main.annotation.object.processor.components;
+package annotation.object.processor.components;
+
+import java.util.List;
 
 import annotation.object.processor.beans.ProcessableField;
-import annotation.object.processor.components.AnnotationBeansManajer;
-import java.util.List;
 
 class ResolveClassFieldsResult {
   private final List<ProcessableField> firstLevelFields;

@@ -1,6 +1,4 @@
-package bin.main.annotation.object.processor.interfaces;
-
-import annotation.object.processor.interfaces.ProcessableFieldFunction;
+package annotation.object.processor.interfaces;
 
 public interface AnnotationObjectProcessor {
   Object processObject(Object paramObject, ProcessableFieldFunction paramProcessableFieldFunction);

@@ -1,4 +1,4 @@
-package bin.test.annotation.object.processor.components.test;
+package annotation.object.processor.components.test;
 
 import annotation.object.processor.AnnotationObjectProcessorAppTest;
 import annotation.object.processor.components.impl.Base64AnnotationProcessor;

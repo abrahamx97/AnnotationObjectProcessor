@@ -1,4 +1,4 @@
-package bin.test.annotation.object.processor;
+package annotation.object.processor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,23 +1,23 @@
-package bin.main.annotation.object.processor.components;
+package annotation.object.processor.components;
 
-import annotation.object.processor.annotations.ProcessableFieldAnnotation;
-import annotation.object.processor.beans.ProcessableField;
-import annotation.object.processor.beans.ProcessableFieldType;
-import annotation.object.processor.beans.ProcessableObjectFilter;
-import annotation.object.processor.components.AnnotationBeansManajer;
-import annotation.object.processor.interfaces.AnnotationObjectProcessor;
-import annotation.object.processor.interfaces.ProcessableFieldFunction;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import annotation.object.processor.beans.ProcessableField;
+import annotation.object.processor.beans.ProcessableFieldType;
+import annotation.object.processor.beans.ProcessableObjectFilter;
+import annotation.object.processor.interfaces.AnnotationObjectProcessor;
+import annotation.object.processor.interfaces.ProcessableFieldFunction;
+
 public abstract class AbstractAnnotationObjectProcessor implements AnnotationObjectProcessor {
-  private static final Logger LOGGER = LoggerFactory.getLogger(annotation.object.processor.components.AbstractAnnotationObjectProcessor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractAnnotationObjectProcessor.class);
   
   private AnnotationBeansManajer annotationBeansManager;
   
@@ -42,7 +42,7 @@ public abstract class AbstractAnnotationObjectProcessor implements AnnotationObj
         Field field = cipherField.getField();
         field.setAccessible(true);
         Object fieldValue = field.get(initialObject);
-        ProcessableFieldAnnotation annotation = field.<ProcessableFieldAnnotation>getAnnotation(this.processableFilter.getFieldAnnotation());
+        Annotation annotation = field.getAnnotation(this.processableFilter.getFieldAnnotation());
         if (fieldValue == null)
           continue; 
         Object processedValue = null;
@@ -75,40 +75,41 @@ public abstract class AbstractAnnotationObjectProcessor implements AnnotationObj
     return exists;
   }
   
-  private Object cipherSimpleField(ProcessableFieldType cipherFieldType, Object fieldValue, ProcessableFieldAnnotation annotation, ProcessableFieldFunction function) {
-    String[] arrayOfString;
-    Object<String> processedValue = null;
+  @SuppressWarnings({ "incomplete-switch", "unchecked" })
+private Object cipherSimpleField(ProcessableFieldType cipherFieldType, Object fieldValue, Annotation annotation, ProcessableFieldFunction function) {
+    Object processedValue = null;
     switch (cipherFieldType) {
       case STRING:
-        processedValue = (Object<String>)function.apply(fieldValue, (Annotation)annotation);
+        processedValue = function.apply(fieldValue, (Annotation)annotation);
         break;
       case LIST_OF_STRING:
-        processedValue = (Object<String>)processSimpleList((List<String>)fieldValue, annotation, function);
+        processedValue = processSimpleList((List<String>)fieldValue, annotation, function);
         break;
-      case null:
-        arrayOfString = processSimpleArray((String[])fieldValue, annotation, function);
+      case ARRAY_OF_STRING:
+    	  processedValue = processSimpleArray((String[])fieldValue, annotation, function);
         break;
     } 
-    return arrayOfString;
+    return processedValue;
   }
   
-  private Object cipherComplexField(ProcessableFieldType cipherFieldType, Object fieldValue, ProcessableFieldFunction function) {
-    Object<Object> encryptedValue = null;
+  @SuppressWarnings({ "unchecked", "incomplete-switch" })
+private Object cipherComplexField(ProcessableFieldType cipherFieldType, Object fieldValue, ProcessableFieldFunction function) {
+    Object processedValue = null;
     switch (cipherFieldType) {
       case COMPLEX_ARRAY:
-        encryptedValue = (Object<Object>)processComplexArray((Object[])fieldValue, function);
+        processedValue = processComplexArray((Object[])fieldValue, function);
         break;
       case COMPLEX_LIST:
-        encryptedValue = (Object<Object>)processComplexList((List<Object>)fieldValue, function);
+        processedValue = processComplexList((List<Object>)fieldValue, function);
         break;
       case COMPLEX_BEAN:
-        encryptedValue = (Object<Object>)processObject(fieldValue, function);
+        processedValue = processObject(fieldValue, function);
         break;
     } 
-    return encryptedValue;
+    return processedValue;
   }
   
-  private List<String> processSimpleList(List<String> list, ProcessableFieldAnnotation annotation, ProcessableFieldFunction function) {
+  private List<String> processSimpleList(List<String> list, Annotation annotation, ProcessableFieldFunction function) {
     List<String> newValues = new ArrayList<>();
     for (String item : list) {
       String newValue = (String)function.apply(item, (Annotation)annotation);
@@ -118,7 +119,7 @@ public abstract class AbstractAnnotationObjectProcessor implements AnnotationObj
   }
   
   private List<Object> processComplexList(List<Object> list, ProcessableFieldFunction function) {
-    List<Object> newValues = new ArrayList();
+    List<Object> newValues = new ArrayList<>();
     for (Object item : list) {
       Object newValue = (item == null) ? null : processObject(item, function);
       newValues.add(newValue);
@@ -126,7 +127,7 @@ public abstract class AbstractAnnotationObjectProcessor implements AnnotationObj
     return newValues;
   }
   
-  private String[] processSimpleArray(String[] array, ProcessableFieldAnnotation annotation, ProcessableFieldFunction function) {
+  private String[] processSimpleArray(String[] array, Annotation annotation, ProcessableFieldFunction function) {
     for (int i = 0; i < array.length; i++) {
       String item = array[i];
       String newValue = (String)function.apply(item, (Annotation)annotation);

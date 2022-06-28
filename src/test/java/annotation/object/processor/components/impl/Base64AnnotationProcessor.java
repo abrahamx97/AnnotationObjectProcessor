@@ -1,4 +1,4 @@
-package bin.test.annotation.object.processor.components.impl;
+package annotation.object.processor.components.impl;
 
 import annotation.object.processor.beans.ProcessableObjectFilter;
 import annotation.object.processor.components.AbstractAnnotationObjectProcessor;

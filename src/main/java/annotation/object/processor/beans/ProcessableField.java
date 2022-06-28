@@ -1,6 +1,5 @@
-package bin.main.annotation.object.processor.beans;
+package annotation.object.processor.beans;
 
-import annotation.object.processor.beans.ProcessableFieldType;
 import java.lang.reflect.Field;
 
 public class ProcessableField {

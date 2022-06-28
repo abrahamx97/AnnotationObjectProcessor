@@ -1,4 +1,4 @@
-package bin.test.annotation.object.processor.components.annotations;
+package annotation.object.processor.components.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

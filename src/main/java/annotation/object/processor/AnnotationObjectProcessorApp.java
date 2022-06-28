@@ -1,4 +1,4 @@
-package bin.main.annotation.object.processor;
+package annotation.object.processor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

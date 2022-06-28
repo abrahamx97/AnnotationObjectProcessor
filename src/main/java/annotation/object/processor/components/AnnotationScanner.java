@@ -1,4 +1,4 @@
-package bin.main.annotation.object.processor.components;
+package annotation.object.processor.components;
 
 import java.lang.annotation.Annotation;
 import java.util.Iterator;
@@ -14,7 +14,7 @@ import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.web.context.support.StandardServletEnvironment;
 
 public class AnnotationScanner {
-  private static final Logger LOGGER = LoggerFactory.getLogger(annotation.object.processor.components.AnnotationScanner.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AnnotationScanner.class);
   
   public static Class<?>[] findAnnotatedClassesInPackage(String basePackage, Class<? extends Annotation> annotationType) {
     List<Class<?>> result = new LinkedList<>();
@@ -30,6 +30,6 @@ public class AnnotationScanner {
         LOGGER.info("Could not resolve class object for bean definition");
       } 
     } 
-    return (Class[])result.<Class<?>[]>toArray((Class<?>[][])new Class[result.size()]);
+    return result.toArray(new Class<?>[result.size()]);
   }
 }

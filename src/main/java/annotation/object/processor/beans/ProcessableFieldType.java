@@ -1,4 +1,4 @@
-package bin.main.annotation.object.processor.beans;
+package annotation.object.processor.beans;
 
 public enum ProcessableFieldType {
   STRING, COMPLEX_BEAN, LIST_OF_STRING, COMPLEX_LIST, ARRAY_OF_STRING, COMPLEX_ARRAY, ROOT_CLASS;

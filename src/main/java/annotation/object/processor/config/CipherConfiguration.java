@@ -1,4 +1,4 @@
-package bin.main.annotation.object.processor.config;
+package annotation.object.processor.config;
 
 import annotation.object.processor.beans.ProcessableObjectFilter;
 import annotation.object.processor.components.AnnotationBeansManajer;

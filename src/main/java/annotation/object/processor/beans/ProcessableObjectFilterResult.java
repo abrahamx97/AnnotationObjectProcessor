@@ -1,7 +1,5 @@
-package bin.main.annotation.object.processor.beans;
+package annotation.object.processor.beans;
 
-import annotation.object.processor.beans.ProcessableField;
-import annotation.object.processor.beans.ProcessableObjectFilter;
 import java.util.List;
 import java.util.Map;
 
